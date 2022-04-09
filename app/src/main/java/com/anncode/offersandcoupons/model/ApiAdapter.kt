@@ -1,13 +1,14 @@
 package com.anncode.offersandcoupons.model
 
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiAdapter {
-    val apiKey = "69d1837829128f9565368ca704c63207"
-    val urlApi = "http://feed.linkmydeals.com/"
+    val apiKey = "95e2fcbc843ca8db898d5d2ac47ad1fd"
+    val urlApi = "https://feed.linkmydeals.com/getOffers/"
 
     fun getClientService(): ApiService {
         val authInterceptor = Interceptor { chain ->
@@ -27,10 +28,14 @@ class ApiAdapter {
         val client = OkHttpClient.Builder()
             .addInterceptor(authInterceptor).build()
 
+        val gson=GsonBuilder()
+            .setLenient()
+            .create();
+
         val retrofit = Retrofit.Builder()
             .baseUrl(urlApi)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
         return  retrofit.create(ApiService::class.java)

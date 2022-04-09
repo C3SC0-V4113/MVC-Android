@@ -44,8 +44,9 @@ class MainActivity : AppCompatActivity() {
                     var coupon = Coupon(jsonObject)
                     coupons.add(coupon)
                 }
+                val adaptador=RecyclerCouponsAdapter(coupons, R.layout.card_coupon);
                 //VIEW
-                rvCoupons.adapter = RecyclerCouponsAdapter(coupons, R.layout.card_coupon)
+                rvCoupons.adapter = adaptador
                 //VIEW
             }
 

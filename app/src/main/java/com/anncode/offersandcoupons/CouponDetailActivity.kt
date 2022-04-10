@@ -18,6 +18,18 @@ class CouponDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coupon_detail)
 
+        /**
+         * Al dar click a un cupón se obtiene la información
+         * por medio de un Intent. lo cual solo lo hace una
+         * declaración de variables de UI, con la unica excepcion
+         * de la imagen que como en el RecyclerCouponAdapter se ve
+         * si está vacio, se decide cambiar por una imagen stock
+         * de Android.
+         *
+         * Lo otro especial es que se hace un intent a Internet
+         * al hacer click en el botón
+         */
+
         couponSelected = intent.getSerializableExtra("COUPON") as Coupon
 
         var tvTitleDetail: TextView = findViewById(R.id.tvTitleDetail)

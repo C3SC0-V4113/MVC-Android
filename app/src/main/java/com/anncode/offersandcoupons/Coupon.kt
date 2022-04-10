@@ -9,6 +9,9 @@ import java.util.*
 
 class Coupon(couponJson: JsonObject?) : Serializable {
 
+    /**
+     * Se crean todas las variables que necesita el cupón
+     */
     lateinit var id: String
     lateinit var image_url: String
     lateinit var title: String
@@ -21,6 +24,11 @@ class Coupon(couponJson: JsonObject?) : Serializable {
     lateinit var url: String
 
     init {
+        /**
+         * Se solicita la información del JSON, en casos
+         * como la fecha, se hace un proceso extra para
+         * presentarse de mejor forma al usuario
+         */
         try {
             id                  = couponJson!!.get(ID).asString
             image_url           = couponJson!!.get(IMAGE_URL).asString
@@ -35,11 +43,13 @@ class Coupon(couponJson: JsonObject?) : Serializable {
         }catch (e: Exception){
             e.printStackTrace()
         }
-
-
     }
 
     companion object {
+        /**
+         * Se obtienen los valores según su llave de API en
+         * el JSON
+         */
         private val ID                  = "lmd_id"
         private val IMAGE_URL           = "image_url"
         private val TITLE               = "title"
@@ -53,6 +63,9 @@ class Coupon(couponJson: JsonObject?) : Serializable {
     }
 
     private fun getFormatDate(dateCoupon:String):String {
+        /**
+         * Se formatea la fecha
+         */
         val format = SimpleDateFormat("yyyy-MM-dd")
         val dateFormat = SimpleDateFormat("dd MMMM yyyy")
         try {
@@ -66,15 +79,4 @@ class Coupon(couponJson: JsonObject?) : Serializable {
         }
     }
 
-
-    private fun chunkWords(string: String, delimiter: Char, quantity: Int): String {
-        val words = string.split(delimiter)
-        var newString: String = ""
-
-        for (i in 0..quantity){
-            newString += words[i] + " "
-        }
-
-        return newString
-    }
 }

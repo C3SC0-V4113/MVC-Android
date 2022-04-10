@@ -27,7 +27,15 @@ class RecyclerCouponsAdapter(var coupons : ArrayList<Coupon>, var resource: Int)
     }
 
     class CardCouponHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
-
+        /**
+         * Se crean las variables que van en la targeta del cupón
+         * en el apartado set,cada parte de la interfaz es cambiada
+         * por la información del cupón.
+         *
+         * El caso de la imagen es particularmente especial, a veces
+         * puede estár vacio. Por lo que se ha optado que si lo está
+         * se cambie por una imagen stock de Android
+         */
         private var coupon: Coupon? = null
         private var imgCoupon: ImageView = v.findViewById(R.id.imgCoupon)
         private var tvTitle: TextView = v.findViewById(R.id.tvTitle)

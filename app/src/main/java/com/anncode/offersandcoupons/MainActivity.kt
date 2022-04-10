@@ -19,14 +19,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        //VIEW
+        /**
+         * VISTA
+         * Se llama al RecyclerView de la vista en el main
+         * Se le agrega como variable para hacerle cambios
+         * en el controlador, además se crea una Array de
+         * cupones
+         */
         val rvCoupons: RecyclerView = findViewById(R.id.rvCoupons) //UI
         rvCoupons.layoutManager = LinearLayoutManager(this)
         val coupons = ArrayList<Coupon>()
-        //VIEW
 
 
-        //CONTROLLER
+        /**
+         * CONTROLADOR
+         * Se hace la llamada de la API, creando primero una
+         * clase del Adaptador, y despues del servicio
+         * para obtener el método GET
+         *
+         * Con la llamada se hacen dos métodos, uno en caso
+         * de fallo y otro en respuesta por parte de la API
+         */
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
         val call = apiService.getCoupons()
@@ -38,24 +51,27 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                /**
+                 * CONTROLADOR
+                 * En caso de respuesta por parte de la API, por cada elemento recibido
+                 * se agrega al Array de cupones, cada elemento cupon con su información
+                 *
+                 * VISTA
+                 * Con la ayuda de un adaptador, se agrega cada cupón al RecycleView
+                 */
                 val offersJsonArray = response.body()?.getAsJsonArray("offers")
-                Log.e("JSON", offersJsonArray.toString())
                 offersJsonArray?.forEach { jsonElement: JsonElement ->
                     var jsonObject = jsonElement.asJsonObject
                     var coupon = Coupon(jsonObject)
                     coupons.add(coupon)
-                    Log.e("Informacion",coupon.toString())
                 }
-                //VIEW
+
                 var adaptador=RecyclerCouponsAdapter(coupons, R.layout.card_coupon)
                 rvCoupons.adapter = adaptador
-                //VIEW
+
             }
 
-
         })
-        //CONTROLLER
-
 
     }
 }

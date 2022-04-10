@@ -39,13 +39,15 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val offersJsonArray = response.body()?.getAsJsonArray("offers")
+                Log.e("JSON", offersJsonArray.toString())
                 offersJsonArray?.forEach { jsonElement: JsonElement ->
                     var jsonObject = jsonElement.asJsonObject
                     var coupon = Coupon(jsonObject)
                     coupons.add(coupon)
+                    Log.e("Informacion",coupon.toString())
                 }
-                val adaptador=RecyclerCouponsAdapter(coupons, R.layout.card_coupon);
                 //VIEW
+                var adaptador=RecyclerCouponsAdapter(coupons, R.layout.card_coupon)
                 rvCoupons.adapter = adaptador
                 //VIEW
             }
